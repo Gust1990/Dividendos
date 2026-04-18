@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Hojas de Ruta - Geometría Analítica</title>
+<style>
+    body { background: #1a1a2e; color: #fff; font-family: sans-serif; padding: 20px; text-align: center; }
+    h1 { color: #4ecca3; margin-bottom: 30px; }
+    h2 { color: #e94560; margin-top: 50px; margin-bottom: 30px; border-bottom: 2px solid #e94560; display: inline-block; padding-bottom: 10px; }
+    
+    /* Contenedor de Pestañas */
+    .tabs-container { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #533483; }
+    .tab-btn { background: #0f3460; color: #fff; border: 2px solid #533483; border-bottom: none; padding: 12px 20px; cursor: pointer; font-size: 16px; margin: 0 5px; border-radius: 8px 8px 0 0; transition: 0.3s; }
+    .tab-btn:hover { background: #16213e; color: #4ecca3; }
+    .tab-btn.active { background: #e94560; color: #fff; font-weight: bold; border-color: #e94560; }
+    
+    /* Contenido de Pestañas */
+    .tab-content { display: none; animation: fadeIn 0.5s; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Opciones y Resultados */
+    div.opcion { margin: 10px auto; padding: 15px; border-radius: 8px; width: 80%; cursor: pointer; border: 2px solid #533483; background: #0f3460; font-size: 18px; transition: 0.3s; }
+    div.opcion:hover { background: #16213e; border-color: #4ecca3; }
+    
+    .resultado { display: none; background: #d35400; color: #fff; font-weight: bold; font-size: 20px; border: 3px dashed #f1c40f; margin-bottom: 60px; padding: 20px; border-radius: 8px; width: 80%; margin-left: auto; margin-right: auto; }
+    .resultado-final { display: none; background: #27ae60; color: #fff; font-weight: bold; font-size: 24px; border: 4px solid #fff; margin-bottom: 60px; padding: 30px; border-radius: 8px; width: 80%; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+<h1>📚 Sistema Integral de AyGA</h1>
+
+<div class="tabs-container">
+    <button class="tab-btn active" onclick="openTab('tab_rectas')">Rectas</button>
+    <button class="tab-btn" onclick="openTab('tab_geovect')">Geometría Vectorial</button>
+    <button class="tab-btn" onclick="openTab('tab_algvect')">Álgebra Vectorial</button>
+    <button class="tab-btn" onclick="openTab('tab_planos')">Planos</button>
+    <button class="tab-btn" onclick="openTab('tab_distang')">Distancias y Ángulos</button>
+</div>
+
+<div id="tab_rectas" class="tab-content active">
+    <h2>Paso 1: El Punto (P)</h2>
+    <div class="opcion" onclick="showRectasP('res_p1')">Tengo el punto servido</div>
+    <div id="res_p1" class="resultado">ACCION: Ya tenes el punto P listo para el paso final</div>
+
+    <div class="opcion" onclick="showRectasP('res_p2')">Me dan una condicion en otra recta (ej: ordenada igual a 3)</div>
+    <div id="res_p2" class="resultado">ACCION: Reemplaza ese valor en la otra recta y despeja x y z</div>
+
+    <div class="opcion" onclick="showRectasP('res_p3')">Pasa por dos puntos A y B</div>
+    <div id="res_p3" class="resultado">ACCION: Elegi cualquiera de los dos puntos</div>
+
+    <div class="opcion" onclick="showRectasP('res_p4')">Interseccion de dos planos</div>
+    <div id="res_p4" class="resultado">ACCION: Dale valor 0 a una variable y resolve el sistema</div>
+
+    <h2>Paso 2: El Vector (v)</h2>
+    <div class="opcion" onclick="showRectasV('res_v1')">Paralela a otra recta</div>
+    <div id="res_v1" class="resultado">ACCION: Copia el vector de esa recta exactamente igual</div>
+
+    <div class="opcion" onclick="showRectasV('res_v2')">Perpendicular a 1 plano</div>
+    <div id="res_v2" class="resultado">ACCION: Usa los coeficientes Normales del plano</div>
+
+    <div class="opcion" onclick="showRectasV('res_v3')">Perpendicular a 2 cosas (rectas o planos)</div>
+    <div id="res_v3" class="resultado">ACCION CRITICA: Hace Producto Vectorial (i j k)</div>
+
+    <div class="opcion" onclick="showRectasV('res_v4')">Pasa por dos puntos A y B</div>
+    <div id="res_v4" class="resultado">ACCION: Resta los puntos (B menos A)</div>
+
+    <div class="opcion" onclick="showRectasV('res_v5')">Interseccion de dos planos</div>
+    <div id="res_v5" class="resultado">ACCION CRITICA: Hace Producto Vectorial con las dos Normales</div>
+
+    <div class="opcion" onclick="showRectasV('res_v6')">NIVEL JEFE: Perpendicular comun a dos rectas alabeadas</div>
+    <div id="res_v6" class="resultado">ACCION CRITICA: Producto Vectorial entre los dos vectores directores</div>
+
+    <h2>Paso 3: El Ensamblado Final</h2>
+    <div class="opcion" onclick="showRectasF('res_final_rectas')">Ya tengo mi Punto y mi Vector</div>
+    <div id="res_final_rectas" class="resultado-final">ACCION: Armar la forma Parametrica. Escribi x = x_Punto + (x_Vector) * Landa. Repeti para y y z. ¡TERMINADO!</div>
+</div>
+
+<div id="tab_geovect" class="tab-content">
+    <h2>Paso 1: Las Incógnitas</h2>
+    <div class="opcion" onclick="showGeo('res_i1')">Tengo todos los componentes de los vectores</div>
+    <div id="res_i1" class="resultado">ACCIÓN: Avanzar al cálculo directo de Área o Volumen</div>
+
+    <div class="opcion" onclick="showGeo('res_i2')">Me falta una componente (ej: x) pero me dan el Área</div>
+    <div id="res_i2" class="resultado">ACCIÓN CRÍTICA: Igualar el módulo del Producto Vectorial al Área dada y despejar la incógnita</div>
+
+    <h2>Paso 2: Área y Volumen</h2>
+    <div class="opcion" onclick="showGeo('res_a1')">Piden o dan Área de un Paralelogramo</div>
+    <div id="res_a1" class="resultado">ACCIÓN: Área = || A x B ||</div>
+
+    <div class="opcion" onclick="showGeo('res_a2')">Piden o dan Volumen de un Paralelepípedo</div>
+    <div id="res_a2" class="resultado">ACCIÓN: Volumen = Área * Altura</div>
+
+    <h2>Paso 3: El Vector Altura</h2>
+    <div class="opcion" onclick="showGeo('res_h1')">Piden el vector altura</div>
+    <div id="res_h1" class="resultado">ACCIÓN FINAL: Hallar el módulo de h (Volumen / Área). Luego multiplicar ese módulo por el Versor del Producto Vectorial</div>
+</div>
+
+<div id="tab_algvect" class="tab-content">
+    <h2>Paso 1: Traduccion de Datos</h2>
+    <div class="opcion" onclick="showAbsP1('res_d1')">El enunciado dice "Vector Unitario"</div>
+    <div id="res_d1" class="resultado">ACCION: Anotar directamente que su norma es 1 (ej: ||A|| = 1),</div>
+
+    <div class="opcion" onclick="showAbsP1('res_d2')">El enunciado habla de "Proyeccion Escalar"</div>
+    <div id="res_d2" class="resultado">ACCION: Usar la formula: ProyEsc_A B = (B * A) / ||A||, Despejar el producto escalar (B * A),</div>
+
+    <div class="opcion" onclick="showAbsP1('res_d3')">Habla de "Vectores Ortogonales o Perpendiculares"</div>
+    <div id="res_d3" class="resultado">ACCION CLAVE: Igualar el producto escalar a cero automaticamente (A * B = 0),</div>
+
+    <div class="opcion" onclick="showAbsP1('res_d4')">Habla de "Vectores Paralelos"</div>
+    <div id="res_d4" class="resultado">ACCION: Plantear que uno es multiplo del otro (A = k * B),</div>
+
+    <h2>Paso 2: Operacion con Normas y Proyecciones</h2>
+    <div class="opcion" onclick="showAbsP2('res_o1')">Me dan la longitud de una suma o resta (ej: ||B + 2A||)</div>
+    <div id="res_o1" class="resultado">ACCION CRITICA: Elevar ambos miembros al cuadrado, Usar la propiedad: ||U+V||^2 = ||U||^2 + 2(U*V) + ||V||^2,</div>
+
+    <div class="opcion" onclick="showAbsP2('res_o2')">Me piden la "Proyeccion Vectorial"</div>
+    <div id="res_o2" class="resultado">ACCION: Multiplicar la Proyeccion Escalar por el Versor del vector base, El resultado es un VECTOR. no un numero,</div>
+
+    <h2>Paso 3: Ensamblado del Angulo</h2>
+    <div class="opcion" onclick="showAbsP3('res_a1_abs')">Piden el angulo entre los vectores</div>
+    <div id="res_a1_abs" class="resultado-final">ACCION FINAL: Usar cos(alpha) = (B * A) / (||B|| * ||A||), Aplicar arccos para sacar el resultado final, ¡TERMINADO!</div>
+</div>
+
+<div id="tab_planos" class="tab-content">
+    <h2>Paso 1: El Punto de Paso (P)</h2>
+    <div class="opcion" onclick="showPlanosP('p1_planos')">El punto me lo dan servido</div>
+    <div id="p1_planos" class="resultado">ACCIÓN: Ya tenés P = (x0, y0, z0).</div>
+
+    <div class="opcion" onclick="showPlanosP('p2_planos')">P es la INTERSECCIÓN entre Recta y Plano</div>
+    <div id="p2_planos" class="resultado">ACCIÓN: 1) Parametrizá la recta. 2) Sustituí x, y, z en la ec. del plano. 3) Hallá Lambda. 4) Volvé a la recta para sacar el Punto.</div>
+
+    <h2>Paso 2: El Vector Normal (n)</h2>
+    <div class="opcion" onclick="showPlanosV('v1_planos')">El plano es PERPENDICULAR a una recta "r"</div>
+    <div id="v1_planos" class="resultado">ACCIÓN: ¡Golazo! El vector director de la recta ES la normal del plano. n = v_r.</div>
+
+    <div class="opcion" onclick="showPlanosV('v2_planos')">El plano es PARALELO a otros dos vectores (o contiene a dos rectas)</div>
+    <div id="v2_planos" class="resultado">ACCIÓN: Hacé Producto Vectorial entre los dos vectores para fabricar la Normal.</div>
+
+    <h2>Paso 3: Ensamblado (Ecuación General)</h2>
+    <div class="opcion" onclick="showPlanosF('final_planos')">Tengo mi Punto P y mi Normal n = (A, B, C)</div>
+    <div id="final_planos" class="resultado-final">ACCIÓN: Escribí A(x - x0) + B(y - y0) + C(z - z0) = 0. Luego distributiva y listo.</div>
+</div>
+
+<div id="tab_distang" class="tab-content">
+    <h2>Rama 1: Calculo de DISTANCIAS</h2>
+    <div class="opcion" onclick="showDist('res_dist1')">Distancia de un PUNTO a un PLANO</div>
+    <div id="res_dist1" class="resultado">ACCION: Usar formula directa.<br>d = |A(x0) + B(y0) + C(z0) + D| / &radic;(A&sup2; + B&sup2; + C&sup2;)</div>
+
+    <div class="opcion" onclick="showDist('res_dist2')">Distancia entre DOS PLANOS</div>
+    <div id="res_dist2" class="resultado">ACCION PREVIA: Verificar que sean paralelos (si no lo son, la distancia es 0).<br>ACCION: Igualar los coeficientes A, B, C en ambos planos.<br>d = |D1 - D2| / &radic;(A&sup2; + B&sup2; + C&sup2;)</div>
+
+    <div class="opcion" onclick="showDist('res_dist3')">Distancia de un PUNTO a una RECTA</div>
+    <div id="res_dist3" class="resultado">ACCION: Armar vector desde un punto de la recta al punto externo (AP).<br>d = || Vector_Director x AP || / || Vector_Director ||</div>
+
+    <div class="opcion" onclick="showDist('res_dist4')">Distancia entre DOS RECTAS (Alabeadas)</div>
+    <div id="res_dist4" class="resultado">ACCION: Armar vector entre los dos puntos de las rectas (P1P2).<br>Hacer producto mixto: d = | P1P2 &middot; (v1 x v2) | / || v1 x v2 ||</div>
+
+    <h2>Rama 2: Calculo de ANGULOS</h2>
+    <div class="opcion" onclick="showAng('res_ang1')">Angulo entre DOS RECTAS</div>
+    <div id="res_ang1" class="resultado">ACCION: Extraer los vectores directores (v1 y v2).<br>cos(&alpha;) = |v1 &middot; v2| / ( ||v1|| * ||v2|| )</div>
+
+    <div class="opcion" onclick="showAng('res_ang2')">Angulo entre DOS PLANOS</div>
+    <div id="res_ang2" class="resultado">ACCION: Extraer los vectores normales (n1 y n2).<br>cos(&alpha;) = |n1 &middot; n2| / ( ||n1|| * ||n2|| )</div>
+
+    <div class="opcion" onclick="showAng('res_ang3')">Angulo entre una RECTA y un PLANO</div>
+    <div id="res_ang3" class="resultado">ACCION CRITICA: Aca se usa SENO, no coseno.<br>Extraer vector director (v) y normal (n).<br>sen(&alpha;) = |v &middot; n| / ( ||v|| * ||n|| )</div>
+</div>
+
+<script>
+    // Navegación por pestañas
+    function openTab(tabId) {
+        let contents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < contents.length; i++) {
+            contents[i].classList.remove("active");
+        }
+        let btns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].classList.remove("active");
+        }
+        document.getElementById(tabId).classList.add("active");
+        event.currentTarget.classList.add("active");
+    }
+
+    // Funciones Tab 1: Rectas
+    function showRectasP(id) {
+        const ids = ['res_p1', 'res_p2', 'res_p3', 'res_p4'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showRectasV(id) {
+        const ids = ['res_v1', 'res_v2', 'res_v3', 'res_v4', 'res_v5', 'res_v6'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showRectasF(id) { document.getElementById(id).style.display = 'block'; }
+
+    // Funciones Tab 2: Geometría Vectorial
+    function showGeo(id) {
+        const ids = ['res_i1', 'res_i2', 'res_a1', 'res_a2', 'res_h1'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    // Funciones Tab 3: Álgebra Vectorial
+    function showAbsP1(id) {
+        const ids = ['res_d1', 'res_d2', 'res_d3', 'res_d4'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showAbsP2(id) {
+        const ids = ['res_o1', 'res_o2'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showAbsP3(id) { document.getElementById(id).style.display = 'block'; }
+
+    // Funciones Tab 4: Planos
+    function showPlanosP(id) {
+        const ids = ['p1_planos', 'p2_planos'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showPlanosV(id) {
+        const ids = ['v1_planos', 'v2_planos'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showPlanosF(id) { document.getElementById(id).style.display = 'block'; }
+
+    // Funciones Tab 5: Distancias y Ángulos
+    function showDist(id) {
+        const ids = ['res_dist1', 'res_dist2', 'res_dist3', 'res_dist4'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+    function showAng(id) {
+        const ids = ['res_ang1', 'res_ang2', 'res_ang3'];
+        ids.forEach(i => document.getElementById(i).style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
