@@ -1,246 +1,268 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Hojas de Ruta - Geometría Analítica</title>
-<style>
-    body { background: #1a1a2e; color: #fff; font-family: sans-serif; padding: 20px; text-align: center; }
-    h1 { color: #4ecca3; margin-bottom: 30px; }
-    h2 { color: #e94560; margin-top: 50px; margin-bottom: 30px; border-bottom: 2px solid #e94560; display: inline-block; padding-bottom: 10px; }
-    
-    /* Contenedor de Pestañas */
-    .tabs-container { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #533483; }
-    .tab-btn { background: #0f3460; color: #fff; border: 2px solid #533483; border-bottom: none; padding: 12px 20px; cursor: pointer; font-size: 16px; margin: 0 5px; border-radius: 8px 8px 0 0; transition: 0.3s; }
-    .tab-btn:hover { background: #16213e; color: #4ecca3; }
-    .tab-btn.active { background: #e94560; color: #fff; font-weight: bold; border-color: #e94560; }
-    
-    /* Contenido de Pestañas */
-    .tab-content { display: none; animation: fadeIn 0.5s; }
-    .tab-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* Opciones y Resultados */
-    div.opcion { margin: 10px auto; padding: 15px; border-radius: 8px; width: 80%; cursor: pointer; border: 2px solid #533483; background: #0f3460; font-size: 18px; transition: 0.3s; }
-    div.opcion:hover { background: #16213e; border-color: #4ecca3; }
-    
-    .resultado { display: none; background: #d35400; color: #fff; font-weight: bold; font-size: 20px; border: 3px dashed #f1c40f; margin-bottom: 60px; padding: 20px; border-radius: 8px; width: 80%; margin-left: auto; margin-right: auto; }
-    .resultado-final { display: none; background: #27ae60; color: #fff; font-weight: bold; font-size: 24px; border: 4px solid #fff; margin-bottom: 60px; padding: 30px; border-radius: 8px; width: 80%; margin-left: auto; margin-right: auto; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividendos GGAL 2026 - Registro Neto</title>
+    <style>
+        :root {
+            --primary: #ea5b0c;
+            --background: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --net-color: #2e7d32;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .header h1 { margin: 0; font-size: 32px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+        }
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .timer-simple {
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--primary);
+            padding: 20px;
+        }
+        .timer-label {
+            display: block;
+            font-size: 18px;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+        .calculator {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .input-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+        .result-box {
+            width: 100%;
+            background-color: #e8f5e9;
+            border: 2px dashed var(--net-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result-amount {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--net-color);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { background-color: #f8f9fa; color: #555; }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .status-past { background-color: #e0e0e0; color: #666; }
+        .status-next { background-color: #d4edda; color: #155724; }
+        .status-future { background-color: #fff3cd; color: #856404; }
+        .val-col { font-weight: bold; color: var(--net-color); }
+    </style>
 </head>
 <body>
 
-<h1>📚 Sistema Integral de AyGA</h1>
+<div class="container">
+    <div class="header">
+        <h1>📊 Dividendos Banco Galicia (GGAL)</h1>
+        <p>Proyección de cobros NETOS para mis acciones</p>
+    </div>
 
-<div class="tabs-container">
-    <button class="tab-btn active" onclick="openTab('tab_rectas')">Rectas</button>
-    <button class="tab-btn" onclick="openTab('tab_geovect')">Geometría Vectorial</button>
-    <button class="tab-btn" onclick="openTab('tab_algvect')">Álgebra Vectorial</button>
-    <button class="tab-btn" onclick="openTab('tab_planos')">Planos</button>
-    <button class="tab-btn" onclick="openTab('tab_distang')">Distancias y Ángulos</button>
-</div>
+    <div class="card">
+        <h2>⏳ Próximo Pago</h2>
+        <div class="timer-simple">
+            <span id="days-count">--</span>
+            <span class="timer-label">Días Faltantes</span>
+        </div>
+        <p style="text-align: center; color: var(--text-light);">Fecha estimada: 14 de mayo de 2026</p>
+    </div>
 
-<div id="tab_rectas" class="tab-content active">
-    <h2>Paso 1: El Punto (P)</h2>
-    <div class="opcion" onclick="showRectasP('res_p1')">Tengo el punto servido</div>
-    <div id="res_p1" class="resultado">ACCION: Ya tenes el punto P listo para el paso final</div>
+    <div class="card">
+        <h2>💰 Calculadora de Cobro Neto</h2>
+        <div class="calculator">
+            <div class="input-group">
+                <label>Mis Acciones:</label>
+                <input type="number" id="shares" value="5170" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Dividendo (ARS):</label>
+                <input type="number" id="dps" value="26.01" step="0.01" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Crecimiento Mensual (%):</label>
+                <input type="number" id="growth" value="2.8" step="0.1" oninput="updateAll()">
+            </div>
+            <div class="input-group">
+                <label>Retenciones (%):</label>
+                <input type="number" id="tax" value="7" step="0.1" oninput="updateAll()">
+            </div>
+            <div class="result-box">
+                <div style="font-weight: bold; color: var(--text-light);">COBRO NETO ESTIMADO (EN MANO)</div>
+                <div class="result-amount">$ <span id="total-val">0.00</span></div>
+            </div>
+        </div>
+    </div>
 
-    <div class="opcion" onclick="showRectasP('res_p2')">Me dan una condicion en otra recta (ej: ordenada igual a 3)</div>
-    <div id="res_p2" class="resultado">ACCION: Reemplaza ese valor en la otra recta y despeja x y z</div>
-
-    <div class="opcion" onclick="showRectasP('res_p3')">Pasa por dos puntos A y B</div>
-    <div id="res_p3" class="resultado">ACCION: Elegi cualquiera de los dos puntos</div>
-
-    <div class="opcion" onclick="showRectasP('res_p4')">Interseccion de dos planos</div>
-    <div id="res_p4" class="resultado">ACCION: Dale valor 0 a una variable y resolve el sistema</div>
-
-    <h2>Paso 2: El Vector (v)</h2>
-    <div class="opcion" onclick="showRectasV('res_v1')">Paralela a otra recta</div>
-    <div id="res_v1" class="resultado">ACCION: Copia el vector de esa recta exactamente igual</div>
-
-    <div class="opcion" onclick="showRectasV('res_v2')">Perpendicular a 1 plano</div>
-    <div id="res_v2" class="resultado">ACCION: Usa los coeficientes Normales del plano</div>
-
-    <div class="opcion" onclick="showRectasV('res_v3')">Perpendicular a 2 cosas (rectas o planos)</div>
-    <div id="res_v3" class="resultado">ACCION CRITICA: Hace Producto Vectorial (i j k)</div>
-
-    <div class="opcion" onclick="showRectasV('res_v4')">Pasa por dos puntos A y B</div>
-    <div id="res_v4" class="resultado">ACCION: Resta los puntos (B menos A)</div>
-
-    <div class="opcion" onclick="showRectasV('res_v5')">Interseccion de dos planos</div>
-    <div id="res_v5" class="resultado">ACCION CRITICA: Hace Producto Vectorial con las dos Normales</div>
-
-    <div class="opcion" onclick="showRectasV('res_v6')">NIVEL JEFE: Perpendicular comun a dos rectas alabeadas</div>
-    <div id="res_v6" class="resultado">ACCION CRITICA: Producto Vectorial entre los dos vectores directores</div>
-
-    <h2>Paso 3: El Ensamblado Final</h2>
-    <div class="opcion" onclick="showRectasF('res_final_rectas')">Ya tengo mi Punto y mi Vector</div>
-    <div id="res_final_rectas" class="resultado-final">ACCION: Armar la forma Parametrica. Escribi x = x_Punto + (x_Vector) * Landa. Repeti para y y z. ¡TERMINADO!</div>
-</div>
-
-<div id="tab_geovect" class="tab-content">
-    <h2>Paso 1: Las Incógnitas</h2>
-    <div class="opcion" onclick="showGeo('res_i1')">Tengo todos los componentes de los vectores</div>
-    <div id="res_i1" class="resultado">ACCIÓN: Avanzar al cálculo directo de Área o Volumen</div>
-
-    <div class="opcion" onclick="showGeo('res_i2')">Me falta una componente (ej: x) pero me dan el Área</div>
-    <div id="res_i2" class="resultado">ACCIÓN CRÍTICA: Igualar el módulo del Producto Vectorial al Área dada y despejar la incógnita</div>
-
-    <h2>Paso 2: Área y Volumen</h2>
-    <div class="opcion" onclick="showGeo('res_a1')">Piden o dan Área de un Paralelogramo</div>
-    <div id="res_a1" class="resultado">ACCIÓN: Área = || A x B ||</div>
-
-    <div class="opcion" onclick="showGeo('res_a2')">Piden o dan Volumen de un Paralelepípedo</div>
-    <div id="res_a2" class="resultado">ACCIÓN: Volumen = Área * Altura</div>
-
-    <h2>Paso 3: El Vector Altura</h2>
-    <div class="opcion" onclick="showGeo('res_h1')">Piden el vector altura</div>
-    <div id="res_h1" class="resultado">ACCIÓN FINAL: Hallar el módulo de h (Volumen / Área). Luego multiplicar ese módulo por el Versor del Producto Vectorial</div>
-</div>
-
-<div id="tab_algvect" class="tab-content">
-    <h2>Paso 1: Traduccion de Datos</h2>
-    <div class="opcion" onclick="showAbsP1('res_d1')">El enunciado dice "Vector Unitario"</div>
-    <div id="res_d1" class="resultado">ACCION: Anotar directamente que su norma es 1 (ej: ||A|| = 1),</div>
-
-    <div class="opcion" onclick="showAbsP1('res_d2')">El enunciado habla de "Proyeccion Escalar"</div>
-    <div id="res_d2" class="resultado">ACCION: Usar la formula: ProyEsc_A B = (B * A) / ||A||, Despejar el producto escalar (B * A),</div>
-
-    <div class="opcion" onclick="showAbsP1('res_d3')">Habla de "Vectores Ortogonales o Perpendiculares"</div>
-    <div id="res_d3" class="resultado">ACCION CLAVE: Igualar el producto escalar a cero automaticamente (A * B = 0),</div>
-
-    <div class="opcion" onclick="showAbsP1('res_d4')">Habla de "Vectores Paralelos"</div>
-    <div id="res_d4" class="resultado">ACCION: Plantear que uno es multiplo del otro (A = k * B),</div>
-
-    <h2>Paso 2: Operacion con Normas y Proyecciones</h2>
-    <div class="opcion" onclick="showAbsP2('res_o1')">Me dan la longitud de una suma o resta (ej: ||B + 2A||)</div>
-    <div id="res_o1" class="resultado">ACCION CRITICA: Elevar ambos miembros al cuadrado, Usar la propiedad: ||U+V||^2 = ||U||^2 + 2(U*V) + ||V||^2,</div>
-
-    <div class="opcion" onclick="showAbsP2('res_o2')">Me piden la "Proyeccion Vectorial"</div>
-    <div id="res_o2" class="resultado">ACCION: Multiplicar la Proyeccion Escalar por el Versor del vector base, El resultado es un VECTOR. no un numero,</div>
-
-    <h2>Paso 3: Ensamblado del Angulo</h2>
-    <div class="opcion" onclick="showAbsP3('res_a1_abs')">Piden el angulo entre los vectores</div>
-    <div id="res_a1_abs" class="resultado-final">ACCION FINAL: Usar cos(alpha) = (B * A) / (||B|| * ||A||), Aplicar arccos para sacar el resultado final, ¡TERMINADO!</div>
-</div>
-
-<div id="tab_planos" class="tab-content">
-    <h2>Paso 1: El Punto de Paso (P)</h2>
-    <div class="opcion" onclick="showPlanosP('p1_planos')">El punto me lo dan servido</div>
-    <div id="p1_planos" class="resultado">ACCIÓN: Ya tenés P = (x0, y0, z0).</div>
-
-    <div class="opcion" onclick="showPlanosP('p2_planos')">P es la INTERSECCIÓN entre Recta y Plano</div>
-    <div id="p2_planos" class="resultado">ACCIÓN: 1) Parametrizá la recta. 2) Sustituí x, y, z en la ec. del plano. 3) Hallá Lambda. 4) Volvé a la recta para sacar el Punto.</div>
-
-    <h2>Paso 2: El Vector Normal (n)</h2>
-    <div class="opcion" onclick="showPlanosV('v1_planos')">El plano es PERPENDICULAR a una recta "r"</div>
-    <div id="v1_planos" class="resultado">ACCIÓN: ¡Golazo! El vector director de la recta ES la normal del plano. n = v_r.</div>
-
-    <div class="opcion" onclick="showPlanosV('v2_planos')">El plano es PARALELO a otros dos vectores (o contiene a dos rectas)</div>
-    <div id="v2_planos" class="resultado">ACCIÓN: Hacé Producto Vectorial entre los dos vectores para fabricar la Normal.</div>
-
-    <h2>Paso 3: Ensamblado (Ecuación General)</h2>
-    <div class="opcion" onclick="showPlanosF('final_planos')">Tengo mi Punto P y mi Normal n = (A, B, C)</div>
-    <div id="final_planos" class="resultado-final">ACCIÓN: Escribí A(x - x0) + B(y - y0) + C(z - z0) = 0. Luego distributiva y listo.</div>
-</div>
-
-<div id="tab_distang" class="tab-content">
-    <h2>Rama 1: Calculo de DISTANCIAS</h2>
-    <div class="opcion" onclick="showDist('res_dist1')">Distancia de un PUNTO a un PLANO</div>
-    <div id="res_dist1" class="resultado">ACCION: Usar formula directa.<br>d = |A(x0) + B(y0) + C(z0) + D| / &radic;(A&sup2; + B&sup2; + C&sup2;)</div>
-
-    <div class="opcion" onclick="showDist('res_dist2')">Distancia entre DOS PLANOS</div>
-    <div id="res_dist2" class="resultado">ACCION PREVIA: Verificar que sean paralelos (si no lo son, la distancia es 0).<br>ACCION: Igualar los coeficientes A, B, C en ambos planos.<br>d = |D1 - D2| / &radic;(A&sup2; + B&sup2; + C&sup2;)</div>
-
-    <div class="opcion" onclick="showDist('res_dist3')">Distancia de un PUNTO a una RECTA</div>
-    <div id="res_dist3" class="resultado">ACCION: Armar vector desde un punto de la recta al punto externo (AP).<br>d = || Vector_Director x AP || / || Vector_Director ||</div>
-
-    <div class="opcion" onclick="showDist('res_dist4')">Distancia entre DOS RECTAS (Alabeadas)</div>
-    <div id="res_dist4" class="resultado">ACCION: Armar vector entre los dos puntos de las rectas (P1P2).<br>Hacer producto mixto: d = | P1P2 &middot; (v1 x v2) | / || v1 x v2 ||</div>
-
-    <h2>Rama 2: Calculo de ANGULOS</h2>
-    <div class="opcion" onclick="showAng('res_ang1')">Angulo entre DOS RECTAS</div>
-    <div id="res_ang1" class="resultado">ACCION: Extraer los vectores directores (v1 y v2).<br>cos(&alpha;) = |v1 &middot; v2| / ( ||v1|| * ||v2|| )</div>
-
-    <div class="opcion" onclick="showAng('res_ang2')">Angulo entre DOS PLANOS</div>
-    <div id="res_ang2" class="resultado">ACCION: Extraer los vectores normales (n1 y n2).<br>cos(&alpha;) = |n1 &middot; n2| / ( ||n1|| * ||n2|| )</div>
-
-    <div class="opcion" onclick="showAng('res_ang3')">Angulo entre una RECTA y un PLANO</div>
-    <div id="res_ang3" class="resultado">ACCION CRITICA: Aca se usa SENO, no coseno.<br>Extraer vector director (v) y normal (n).<br>sen(&alpha;) = |v &middot; n| / ( ||v|| * ||n|| )</div>
+    <div class="card">
+        <h2>📅 Historial y Proyección 2026 (Valores Netos)</h2>
+        <div style="overflow-x: auto;">
+            <table id="dividend-table">
+                <thead>
+                    <tr>
+                        <th>Fecha de Pago</th>
+                        <th>Monto Bruto</th>
+                        <th>Recibiré NETO (Aprox.)</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-dps="23.90"><td>14/01/2026</td><td>$ 23,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="24.57"><td>14/02/2026</td><td>$ 24,57</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="25.28"><td>14/03/2026</td><td>$ 25,28</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="26.01"><td>15/04/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="26.01"><td>14/05/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-next">Próximo</span></td></tr>
+                    <tr data-dps="26.30"><td>14/06/2026 (Est.)</td><td>$ 26,30</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="26.60"><td>14/07/2026 (Est.)</td><td>$ 26,60</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="26.90"><td>14/08/2026 (Est.)</td><td>$ 26,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="27.20"><td>14/09/2026 (Est.)</td><td>$ 27,20</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="27.50"><td>14/10/2026 (Est.)</td><td>$ 27,50</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="27.80"><td>14/11/2026 (Est.)</td><td>$ 27,80</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="28.10"><td>14/12/2026 (Est.)</td><td>$ 28,10</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-    // Navegación por pestañas
-    function openTab(tabId) {
-        let contents = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < contents.length; i++) {
-            contents[i].classList.remove("active");
+    function formatMoney(amount) {
+        return amount.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).replace(/,/g, 'X').replace(/\./g, ',').replace(/X/g, '.');
+    }
+
+    function updateTimer() {
+        const target = new Date("2026-05-14T00:00:00");
+        const today = new Date();
+        const diff = target - today;
+        
+        if (diff > 0) {
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("days-count").innerText = days;
+        } else {
+            document.getElementById("days-count").innerText = "0";
         }
-        let btns = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < btns.length; i++) {
-            btns[i].classList.remove("active");
-        }
-        document.getElementById(tabId).classList.add("active");
-        event.currentTarget.classList.add("active");
     }
 
-    // Funciones Tab 1: Rectas
-    function showRectasP(id) {
-        const ids = ['res_p1', 'res_p2', 'res_p3', 'res_p4'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showRectasV(id) {
-        const ids = ['res_v1', 'res_v2', 'res_v3', 'res_v4', 'res_v5', 'res_v6'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showRectasF(id) { document.getElementById(id).style.display = 'block'; }
+    function updateAll() {
+        const shares = parseFloat(document.getElementById("shares").value) || 0;
+        const currentDps = parseFloat(document.getElementById("dps").value) || 0;
+        const taxPercentage = parseFloat(document.getElementById("tax").value) || 0;
+        const growthPercentage = parseFloat(document.getElementById("growth").value) || 0;
+        
+        const multiplier = 1 - (taxPercentage / 100);
+        const growthRate = 1 + (growthPercentage / 100);
+        
+        // Actualiza el recuadro principal
+        const nextNetTotal = shares * currentDps * multiplier;
+        document.getElementById("total-val").innerText = formatMoney(nextNetTotal);
 
-    // Funciones Tab 2: Geometría Vectorial
-    function showGeo(id) {
-        const ids = ['res_i1', 'res_i2', 'res_a1', 'res_a2', 'res_h1'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
+        // Variables para llevar el cálculo acumulado
+        let futureDps = currentDps;
+
+        // Actualiza las filas de la tabla
+        const rows = document.querySelectorAll("#dividend-table tbody tr");
+        rows.forEach(row => {
+            let dps;
+            
+            if (row.querySelector(".status-next")) {
+                // Mes actual ingresado manualmente
+                dps = currentDps;
+                row.cells[1].innerText = "$ " + formatMoney(dps); 
+                row.setAttribute("data-dps", dps); 
+            } else if (row.querySelector(".status-future")) {
+                // Meses futuros calculados con el crecimiento compuesto
+                futureDps = futureDps * growthRate;
+                dps = futureDps;
+                row.cells[1].innerText = "$ " + formatMoney(dps); 
+                row.setAttribute("data-dps", dps); 
+            } else {
+                // Meses pasados mantienen sus valores fijos originales
+                dps = parseFloat(row.getAttribute("data-dps"));
+            }
+
+            const totalNet = shares * dps * multiplier;
+            row.querySelector(".val-col").innerText = "$ " + formatMoney(totalNet);
+        });
     }
 
-    // Funciones Tab 3: Álgebra Vectorial
-    function showAbsP1(id) {
-        const ids = ['res_d1', 'res_d2', 'res_d3', 'res_d4'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showAbsP2(id) {
-        const ids = ['res_o1', 'res_o2'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showAbsP3(id) { document.getElementById(id).style.display = 'block'; }
-
-    // Funciones Tab 4: Planos
-    function showPlanosP(id) {
-        const ids = ['p1_planos', 'p2_planos'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showPlanosV(id) {
-        const ids = ['v1_planos', 'v2_planos'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showPlanosF(id) { document.getElementById(id).style.display = 'block'; }
-
-    // Funciones Tab 5: Distancias y Ángulos
-    function showDist(id) {
-        const ids = ['res_dist1', 'res_dist2', 'res_dist3', 'res_dist4'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
-    function showAng(id) {
-        const ids = ['res_ang1', 'res_ang2', 'res_ang3'];
-        ids.forEach(i => document.getElementById(i).style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
+    updateTimer();
+    updateAll();
 </script>
-
 </body>
 </html>
