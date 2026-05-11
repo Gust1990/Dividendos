@@ -146,7 +146,7 @@
         <div class="calculator">
             <div class="input-group">
                 <label>Mis Acciones:</label>
-                <input type="number" id="shares" value="5170" oninput="updateAll()">
+                <input type="number" id="shares" value="5169" oninput="updateAll()">
             </div>
             <div class="input-group">
                 <label>Dividendo (ARS):</label>
@@ -181,16 +181,16 @@
                 </thead>
                 <tbody>
                     <tr data-dps="23.90"><td>14/01/2026</td><td>$ 23,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="24.57"><td>14/02/2026</td><td>$ 24,57</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="25.28"><td>14/03/2026</td><td>$ 25,28</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="24.57"><td>13/02/2026</td><td>$ 24,57</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                    <tr data-dps="25.28"><td>13/03/2026</td><td>$ 25,28</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
                     <tr data-dps="26.01"><td>15/04/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
                     <tr data-dps="26.01"><td>14/05/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-next">Próximo</span></td></tr>
-                    <tr data-dps="26.30"><td>14/06/2026 (Est.)</td><td>$ 26,30</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="26.30"><td>15/06/2026 (Est.)</td><td>$ 26,30</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                     <tr data-dps="26.60"><td>14/07/2026 (Est.)</td><td>$ 26,60</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                     <tr data-dps="26.90"><td>14/08/2026 (Est.)</td><td>$ 26,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                     <tr data-dps="27.20"><td>14/09/2026 (Est.)</td><td>$ 27,20</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                     <tr data-dps="27.50"><td>14/10/2026 (Est.)</td><td>$ 27,50</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="27.80"><td>14/11/2026 (Est.)</td><td>$ 27,80</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    <tr data-dps="27.80"><td>16/11/2026 (Est.)</td><td>$ 27,80</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                     <tr data-dps="28.10"><td>14/12/2026 (Est.)</td><td>$ 28,10</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
                 </tbody>
             </table>
@@ -219,6 +219,20 @@
         }
     }
 
+    function saveToStorage() {
+        localStorage.setItem('div_shares', document.getElementById("shares").value);
+        localStorage.setItem('div_dps', document.getElementById("dps").value);
+        localStorage.setItem('div_growth', document.getElementById("growth").value);
+        localStorage.setItem('div_tax', document.getElementById("tax").value);
+    }
+
+    function loadFromStorage() {
+        if(localStorage.getItem('div_shares')) document.getElementById("shares").value = localStorage.getItem('div_shares');
+        if(localStorage.getItem('div_dps')) document.getElementById("dps").value = localStorage.getItem('div_dps');
+        if(localStorage.getItem('div_growth')) document.getElementById("growth").value = localStorage.getItem('div_growth');
+        if(localStorage.getItem('div_tax')) document.getElementById("tax").value = localStorage.getItem('div_tax');
+    }
+
     function updateAll() {
         const shares = parseFloat(document.getElementById("shares").value) || 0;
         const currentDps = parseFloat(document.getElementById("dps").value) || 0;
@@ -228,39 +242,36 @@
         const multiplier = 1 - (taxPercentage / 100);
         const growthRate = 1 + (growthPercentage / 100);
         
-        // Actualiza el recuadro principal
         const nextNetTotal = shares * currentDps * multiplier;
         document.getElementById("total-val").innerText = formatMoney(nextNetTotal);
 
-        // Variables para llevar el cálculo acumulado
         let futureDps = currentDps;
 
-        // Actualiza las filas de la tabla
         const rows = document.querySelectorAll("#dividend-table tbody tr");
         rows.forEach(row => {
             let dps;
             
             if (row.querySelector(".status-next")) {
-                // Mes actual ingresado manualmente
                 dps = currentDps;
                 row.cells[1].innerText = "$ " + formatMoney(dps); 
                 row.setAttribute("data-dps", dps); 
             } else if (row.querySelector(".status-future")) {
-                // Meses futuros calculados con el crecimiento compuesto
                 futureDps = futureDps * growthRate;
                 dps = futureDps;
                 row.cells[1].innerText = "$ " + formatMoney(dps); 
                 row.setAttribute("data-dps", dps); 
             } else {
-                // Meses pasados mantienen sus valores fijos originales
                 dps = parseFloat(row.getAttribute("data-dps"));
             }
 
             const totalNet = shares * dps * multiplier;
             row.querySelector(".val-col").innerText = "$ " + formatMoney(totalNet);
         });
+
+        saveToStorage();
     }
 
+    loadFromStorage();
     updateTimer();
     updateAll();
 </script>
