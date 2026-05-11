@@ -153,7 +153,7 @@
         .status-past { background-color: #e0e0e0; color: #666; }
         .status-next { background-color: #d4edda; color: #155724; }
         .status-future { background-color: #fff3cd; color: #856404; }
-        .table-left td, .table-left th { text-align: left; } /* Para tabla de dividendos */
+        .table-left td, .table-left th { text-align: left; }
     </style>
 </head>
 <body>
@@ -293,15 +293,12 @@
     // LÓGICA DE PESTAÑAS (TABS)
     // ==========================================
     function openTab(tabId) {
-        // Ocultar todos los contenidos
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => content.classList.remove('active'));
         
-        // Quitar la clase active de todos los botones
         const buttons = document.querySelectorAll('.tab-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
         
-        // Mostrar el contenido seleccionado y marcar el botón
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
@@ -309,7 +306,56 @@
     document.addEventListener('DOMContentLoaded', () => {
 
         // ==========================================
-        // FUNCIONES COMUNES
+        // LOCAL STORAGE: GUARDAR Y CARGAR TODO
+        // ==========================================
+        function saveToStorage() {
+            try {
+                // Guardar datos de la pestaña Dividendos
+                localStorage.setItem('div_shares', document.getElementById("shares").value);
+                localStorage.setItem('div_dps', document.getElementById("dps").value);
+                localStorage.setItem('div_growth', document.getElementById("growth").value);
+                localStorage.setItem('div_tax', document.getElementById("tax").value);
+
+                // Guardar datos de la pestaña Proyección
+                localStorage.setItem('proj_initial_shares', document.getElementById("initial-shares").value);
+                localStorage.setItem('proj_growth_rate', document.getElementById("growth-rate").value);
+                localStorage.setItem('proj_payout_per_lot', document.getElementById("payout-per-lot").value);
+                localStorage.setItem('proj_years_to_project', document.getElementById("years-to-project").value);
+            } catch (e) {
+                console.error("No se pudo guardar en localStorage");
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                // Cargar datos de la pestaña Dividendos
+                const sShares = localStorage.getItem('div_shares');
+                const sDps = localStorage.getItem('div_dps');
+                const sGrowth = localStorage.getItem('div_growth');
+                const sTax = localStorage.getItem('div_tax');
+
+                if(sShares && !isNaN(parseFloat(sShares))) document.getElementById("shares").value = sShares;
+                if(sDps && !isNaN(parseFloat(sDps))) document.getElementById("dps").value = sDps;
+                if(sGrowth && !isNaN(parseFloat(sGrowth))) document.getElementById("growth").value = sGrowth;
+                if(sTax && !isNaN(parseFloat(sTax))) document.getElementById("tax").value = sTax;
+
+                // Cargar datos de la pestaña Proyección
+                const pShares = localStorage.getItem('proj_initial_shares');
+                const pGrowth = localStorage.getItem('proj_growth_rate');
+                const pPayout = localStorage.getItem('proj_payout_per_lot');
+                const pYears = localStorage.getItem('proj_years_to_project');
+
+                if(pShares && !isNaN(parseFloat(pShares))) document.getElementById("initial-shares").value = pShares;
+                if(pGrowth && !isNaN(parseFloat(pGrowth))) document.getElementById("growth-rate").value = pGrowth;
+                if(pPayout && !isNaN(parseFloat(pPayout))) document.getElementById("payout-per-lot").value = pPayout;
+                if(pYears && !isNaN(parseFloat(pYears))) document.getElementById("years-to-project").value = pYears;
+            } catch (e) {
+                console.error("No se pudieron cargar datos previos");
+            }
+        }
+
+        // ==========================================
+        // FUNCIONES DE FORMATEO
         // ==========================================
         function formatNumberBasic(num) {
             return Math.floor(num).toLocaleString('en-US').replace(/,/g, 'X').replace(/\./g, ',').replace(/X/g, '.');
@@ -360,6 +406,8 @@
                 `;
                 tbody.appendChild(tr);
             }
+            
+            saveToStorage(); // Guardar cambios en el almacenamiento local
         };
 
         // ==========================================
@@ -375,33 +423,6 @@
                 document.getElementById("days-count").innerText = days;
             } else {
                 document.getElementById("days-count").innerText = "0";
-            }
-        }
-
-        function saveToStorage() {
-            try {
-                localStorage.setItem('div_shares', document.getElementById("shares").value);
-                localStorage.setItem('div_dps', document.getElementById("dps").value);
-                localStorage.setItem('div_growth', document.getElementById("growth").value);
-                localStorage.setItem('div_tax', document.getElementById("tax").value);
-            } catch (e) {
-                console.error("No se pudo guardar en localStorage");
-            }
-        }
-
-        function loadFromStorage() {
-            try {
-                const sShares = localStorage.getItem('div_shares');
-                const sDps = localStorage.getItem('div_dps');
-                const sGrowth = localStorage.getItem('div_growth');
-                const sTax = localStorage.getItem('div_tax');
-
-                if(sShares && !isNaN(parseFloat(sShares))) document.getElementById("shares").value = sShares;
-                if(sDps && !isNaN(parseFloat(sDps))) document.getElementById("dps").value = sDps;
-                if(sGrowth && !isNaN(parseFloat(sGrowth))) document.getElementById("growth").value = sGrowth;
-                if(sTax && !isNaN(parseFloat(sTax))) document.getElementById("tax").value = sTax;
-            } catch (e) {
-                console.error("No se pudieron cargar datos previos");
             }
         }
 
@@ -445,10 +466,10 @@
                 row.querySelector(".money-col").innerText = "$ " + formatMoney(totalNet);
             });
 
-            saveToStorage();
+            saveToStorage(); // Guardar cambios en el almacenamiento local
         }
 
-        // Asignar eventos de los inputs de Dividendos
+        // Asignar eventos a los inputs de Dividendos
         document.getElementById("shares").addEventListener('input', updateDividendos);
         document.getElementById("dps").addEventListener('input', updateDividendos);
         document.getElementById("growth").addEventListener('input', updateDividendos);
@@ -458,7 +479,7 @@
         loadFromStorage();
         updateTimer();
         updateDividendos();
-        calculateProjection(); // Generar la tabla de proyección inicialmente
+        calculateProjection();
     });
 </script>
 </body>
