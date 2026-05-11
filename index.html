@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dividendos GGAL 2026 - Registro Neto</title>
-
-    <!-- Metadatos para App Instalable (PWA) -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Div GGAL">
+    <title>Panel Financiero GGAL</title>
+    
+    <!-- Meta tags para App Local / PWA -->
     <meta name="theme-color" content="#ea5b0c">
-
-    <!-- Iconos SVG Base64 -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZWE1YjBjIi8+PHRleHQgeD0iNTAiIHk9IjcwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZWE1YjBjIi8+PHRleHQgeD0iNTAiIHk9IjcwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Panel GGAL">
+    
+    <!-- Icono SVG en Base64 -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjE1IiBmaWxsPSIjZWE1YjBjIi8+PHBhdGggZD0iTTI1IDc1IEw3NSA3NSBNMjUgNzUgTDI1IDI1IE0zNSA2MCBMNTAgNDUgTDYwIDU1IEw3NSAzNSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjE1IiBmaWxsPSIjZWE1YjBjIi8+PHBhdGggZD0iTTI1IDc1IEw3NSA3NSBNMjUgNzUgTDI1IDI1IE0zNSA2MCBMNTAgNDUgTDYwIDU1IEw3NSAzNSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==">
 
     <style>
         :root {
             --primary: #ea5b0c;
+            --primary-hover: #d14a06;
             --background: #fdfbf7;
             --card-bg: #ffffff;
             --text-dark: #333333;
             --text-light: #666666;
             --border: #e0e0e0;
             --net-color: #2e7d32;
+            --highlight: #0056b3;
         }
         body {
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
@@ -35,18 +36,57 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         .header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background-color: var(--primary);
             color: white;
             border-radius: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .header h1 { margin: 0; font-size: 32px; }
+        
+        /* Estilos de las Pestañas (Tabs) */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background-color: #f1f1f1;
+            color: var(--text-dark);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover { background-color: #e2e2e2; }
+        .tab-btn.active {
+            background-color: white;
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(234, 91, 12, 0.15);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos de Tarjetas compartidos */
         .card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -61,24 +101,11 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-        .timer-simple {
-            text-align: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--primary);
-            padding: 20px;
-        }
-        .timer-label {
-            display: block;
-            font-size: 18px;
-            color: var(--text-light);
-            text-transform: uppercase;
-        }
         .calculator {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            justify-content: space-between;
+            margin-bottom: 20px;
             align-items: flex-end;
         }
         .input-group {
@@ -99,20 +126,6 @@
             font-size: 18px;
             box-sizing: border-box;
         }
-        .result-box {
-            width: 100%;
-            background-color: #e8f5e9;
-            border: 2px dashed var(--net-color);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .result-amount {
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--net-color);
-        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -120,172 +133,333 @@
         }
         th, td {
             padding: 15px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid var(--border);
         }
-        th { background-color: #f8f9fa; color: #555; }
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-        }
+        th { background-color: #f8f9fa; color: #555; font-size: 14px; }
+        
+        /* Clases específicas */
+        .val-col { font-weight: bold; color: var(--text-dark); }
+        .lote-col { font-weight: bold; color: var(--primary); font-size: 17px; }
+        .money-col { font-weight: bold; color: var(--net-color); font-size: 17px; }
+        .growth-col { font-weight: bold; color: var(--highlight); }
+        
+        /* Clases para Dividendos */
+        .timer-simple { text-align: center; font-size: 48px; font-weight: bold; color: var(--primary); padding: 20px; }
+        .timer-label { display: block; font-size: 18px; color: var(--text-light); text-transform: uppercase; }
+        .result-box { width: 100%; background-color: #e8f5e9; border: 2px dashed var(--net-color); padding: 20px; border-radius: 10px; text-align: center; margin-top: 20px; }
+        .result-amount { font-size: 42px; font-weight: 800; color: var(--net-color); }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; }
         .status-past { background-color: #e0e0e0; color: #666; }
         .status-next { background-color: #d4edda; color: #155724; }
         .status-future { background-color: #fff3cd; color: #856404; }
-        .val-col { font-weight: bold; color: var(--net-color); }
+        .table-left td, .table-left th { text-align: left; } /* Para tabla de dividendos */
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>📊 Dividendos Banco Galicia (GGAL)</h1>
-        <p>Proyección de cobros NETOS para mis acciones</p>
+        <h1>📊 Panel Financiero GGAL</h1>
+        <p>Herramientas de gestión y proyección de tu portafolio</p>
     </div>
 
-    <div class="card">
-        <h2>⏳ Próximo Pago</h2>
-        <div class="timer-simple">
-            <span id="days-count">--</span>
-            <span class="timer-label">Días Faltantes</span>
-        </div>
-        <p style="text-align: center; color: var(--text-light);">Fecha estimada: 14 de mayo de 2026</p>
+    <!-- Navegación de Pestañas -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('tab-proyeccion')">📈 Proyección de Lotes</button>
+        <button class="tab-btn" onclick="openTab('tab-dividendos')">💰 Dividendos Netos</button>
     </div>
 
-    <div class="card">
-        <h2>💰 Calculadora de Cobro Neto</h2>
-        <div class="calculator">
-            <div class="input-group">
-                <label>Mis Acciones:</label>
-                <input type="number" id="shares" value="5169" oninput="updateAll()">
-            </div>
-            <div class="input-group">
-                <label>Dividendo (ARS):</label>
-                <input type="number" id="dps" value="26.01" step="0.01" oninput="updateAll()">
-            </div>
-            <div class="input-group">
-                <label>Crecimiento Mensual (%):</label>
-                <input type="number" id="growth" value="2.8" step="0.1" oninput="updateAll()">
-            </div>
-            <div class="input-group">
-                <label>Retenciones (%):</label>
-                <input type="number" id="tax" value="7" step="0.1" oninput="updateAll()">
-            </div>
-            <div class="result-box">
-                <div style="font-weight: bold; color: var(--text-light);">COBRO NETO ESTIMADO (EN MANO)</div>
-                <div class="result-amount">$ <span id="total-val">0.00</span></div>
+    <!-- ============================================== -->
+    <!-- PESTAÑA 1: PROYECCIÓN DE LOTES                 -->
+    <!-- ============================================== -->
+    <div id="tab-proyeccion" class="tab-content active">
+        <div class="card">
+            <h2>⚙️ Parámetros de Crecimiento Escalar</h2>
+            <div class="calculator">
+                <div class="input-group">
+                    <label>Acciones Iniciales:</label>
+                    <input type="number" id="initial-shares" value="5169" oninput="calculateProjection()">
+                </div>
+                <div class="input-group">
+                    <label>Tasa de Crecimiento Anual (%):</label>
+                    <input type="number" id="growth-rate" value="15" step="1" oninput="calculateProjection()">
+                </div>
+                <div class="input-group">
+                    <label>Cobro por Lote (ARS):</label>
+                    <input type="number" id="payout-per-lot" value="50000" step="1000" oninput="calculateProjection()">
+                </div>
+                <div class="input-group">
+                    <label>Plazo Proyección (Años):</label>
+                    <input type="number" id="years-to-project" value="10" step="2" oninput="calculateProjection()">
+                </div>
             </div>
         </div>
+
+        <div class="card">
+            <h2>📅 Evolución de Ganancia Escalar (Cada 2 Años)</h2>
+            <div style="overflow-x: auto;">
+                <table id="projection-table">
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Acciones Totales</th>
+                            <th>Lotes (100 acc)</th>
+                            <th>Cobro Estimado</th>
+                            <th>Crecimiento vs 2026 (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Generado por JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-        <h2>📅 Historial y Proyección 2026 (Valores Netos)</h2>
-        <div style="overflow-x: auto;">
-            <table id="dividend-table">
-                <thead>
-                    <tr>
-                        <th>Fecha de Pago</th>
-                        <th>Monto Bruto</th>
-                        <th>Recibiré NETO (Aprox.)</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr data-dps="23.90"><td>14/01/2026</td><td>$ 23,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="24.57"><td>13/02/2026</td><td>$ 24,57</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="25.28"><td>13/03/2026</td><td>$ 25,28</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="26.01"><td>15/04/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
-                    <tr data-dps="26.01"><td>14/05/2026</td><td>$ 26,01</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-next">Próximo</span></td></tr>
-                    <tr data-dps="26.30"><td>15/06/2026 (Est.)</td><td>$ 26,30</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="26.60"><td>14/07/2026 (Est.)</td><td>$ 26,60</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="26.90"><td>14/08/2026 (Est.)</td><td>$ 26,90</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="27.20"><td>14/09/2026 (Est.)</td><td>$ 27,20</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="27.50"><td>14/10/2026 (Est.)</td><td>$ 27,50</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="27.80"><td>16/11/2026 (Est.)</td><td>$ 27,80</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                    <tr data-dps="28.10"><td>14/12/2026 (Est.)</td><td>$ 28,10</td><td class="val-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
-                </tbody>
-            </table>
+    <!-- ============================================== -->
+    <!-- PESTAÑA 2: REGISTRO DE DIVIDENDOS              -->
+    <!-- ============================================== -->
+    <div id="tab-dividendos" class="tab-content">
+        <div class="card">
+            <h2>⏳ Próximo Pago</h2>
+            <div class="timer-simple">
+                <span id="days-count">--</span>
+                <span class="timer-label">Días Faltantes</span>
+            </div>
+            <p style="text-align: center; color: var(--text-light);">Fecha estimada: 14 de mayo de 2026</p>
+        </div>
+
+        <div class="card">
+            <h2>💰 Calculadora de Cobro Neto</h2>
+            <div class="calculator">
+                <div class="input-group">
+                    <label>Mis Acciones:</label>
+                    <input type="number" id="shares" value="5169">
+                </div>
+                <div class="input-group">
+                    <label>Dividendo Bruto (ARS):</label>
+                    <input type="number" id="dps" value="26.01" step="0.01">
+                </div>
+                <div class="input-group">
+                    <label>Crecimiento Mensual (%):</label>
+                    <input type="number" id="growth" value="2.8" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Retenciones (%):</label>
+                    <input type="number" id="tax" value="7" step="0.1">
+                </div>
+                <div class="result-box">
+                    <div style="font-weight: bold; color: var(--text-light);">COBRO NETO ESTIMADO (EN MANO)</div>
+                    <div class="result-amount">$ <span id="total-val">0,00</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📅 Historial y Proyección 2026 (Valores Netos)</h2>
+            <div style="overflow-x: auto;">
+                <table id="dividend-table" class="table-left">
+                    <thead>
+                        <tr>
+                            <th>Fecha de Pago</th>
+                            <th>Monto Bruto</th>
+                            <th>Recibiré NETO (Aprox.)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-dps="23.90"><td>14/01/2026</td><td>$ 23,90</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                        <tr data-dps="24.57"><td>13/02/2026</td><td>$ 24,57</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                        <tr data-dps="25.28"><td>13/03/2026</td><td>$ 25,28</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                        <tr data-dps="26.01"><td>15/04/2026</td><td>$ 26,01</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-past">Pagado</span></td></tr>
+                        <tr data-dps="26.01"><td>14/05/2026</td><td>$ 26,01</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-next">Próximo</span></td></tr>
+                        <tr data-dps="26.30"><td>15/06/2026 (Est.)</td><td>$ 26,30</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="26.60"><td>14/07/2026 (Est.)</td><td>$ 26,60</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="26.90"><td>14/08/2026 (Est.)</td><td>$ 26,90</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="27.20"><td>14/09/2026 (Est.)</td><td>$ 27,20</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="27.50"><td>14/10/2026 (Est.)</td><td>$ 27,50</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="27.80"><td>16/11/2026 (Est.)</td><td>$ 27,80</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                        <tr data-dps="28.10"><td>14/12/2026 (Est.)</td><td>$ 28,10</td><td class="money-col">$ 0,00</td><td><span class="status-badge status-future">Proyectado</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    function formatMoney(amount) {
-        return amount.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }).replace(/,/g, 'X').replace(/\./g, ',').replace(/X/g, '.');
+    // ==========================================
+    // LÓGICA DE PESTAÑAS (TABS)
+    // ==========================================
+    function openTab(tabId) {
+        // Ocultar todos los contenidos
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // Quitar la clase active de todos los botones
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        // Mostrar el contenido seleccionado y marcar el botón
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    function updateTimer() {
-        const target = new Date("2026-05-14T00:00:00");
-        const today = new Date();
-        const diff = target - today;
-        
-        if (diff > 0) {
-            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("days-count").innerText = days;
-        } else {
-            document.getElementById("days-count").innerText = "0";
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ==========================================
+        // FUNCIONES COMUNES
+        // ==========================================
+        function formatNumberBasic(num) {
+            return Math.floor(num).toLocaleString('en-US').replace(/,/g, 'X').replace(/\./g, ',').replace(/X/g, '.');
         }
-    }
 
-    function saveToStorage() {
-        localStorage.setItem('div_shares', document.getElementById("shares").value);
-        localStorage.setItem('div_dps', document.getElementById("dps").value);
-        localStorage.setItem('div_growth', document.getElementById("growth").value);
-        localStorage.setItem('div_tax', document.getElementById("tax").value);
-    }
+        function formatMoney(amount) {
+            if (isNaN(amount)) return "0,00";
+            return amount.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).replace(/,/g, 'X').replace(/\./g, ',').replace(/X/g, '.');
+        }
 
-    function loadFromStorage() {
-        if(localStorage.getItem('div_shares')) document.getElementById("shares").value = localStorage.getItem('div_shares');
-        if(localStorage.getItem('div_dps')) document.getElementById("dps").value = localStorage.getItem('div_dps');
-        if(localStorage.getItem('div_growth')) document.getElementById("growth").value = localStorage.getItem('div_growth');
-        if(localStorage.getItem('div_tax')) document.getElementById("tax").value = localStorage.getItem('div_tax');
-    }
-
-    function updateAll() {
-        const shares = parseFloat(document.getElementById("shares").value) || 0;
-        const currentDps = parseFloat(document.getElementById("dps").value) || 0;
-        const taxPercentage = parseFloat(document.getElementById("tax").value) || 0;
-        const growthPercentage = parseFloat(document.getElementById("growth").value) || 0;
-        
-        const multiplier = 1 - (taxPercentage / 100);
-        const growthRate = 1 + (growthPercentage / 100);
-        
-        const nextNetTotal = shares * currentDps * multiplier;
-        document.getElementById("total-val").innerText = formatMoney(nextNetTotal);
-
-        let futureDps = currentDps;
-
-        const rows = document.querySelectorAll("#dividend-table tbody tr");
-        rows.forEach(row => {
-            let dps;
+        // ==========================================
+        // LÓGICA: PROYECCIÓN DE LOTES
+        // ==========================================
+        window.calculateProjection = function() {
+            const initialShares = parseFloat(document.getElementById("initial-shares").value) || 0;
+            const growthRate = parseFloat(document.getElementById("growth-rate").value) || 0;
+            const payoutPerLot = parseFloat(document.getElementById("payout-per-lot").value) || 0;
+            const yearsToProject = parseInt(document.getElementById("years-to-project").value) || 10;
             
-            if (row.querySelector(".status-next")) {
-                dps = currentDps;
-                row.cells[1].innerText = "$ " + formatMoney(dps); 
-                row.setAttribute("data-dps", dps); 
-            } else if (row.querySelector(".status-future")) {
-                futureDps = futureDps * growthRate;
-                dps = futureDps;
-                row.cells[1].innerText = "$ " + formatMoney(dps); 
-                row.setAttribute("data-dps", dps); 
-            } else {
-                dps = parseFloat(row.getAttribute("data-dps"));
+            const tbody = document.querySelector("#projection-table tbody");
+            tbody.innerHTML = "";
+            
+            const currentYear = new Date().getFullYear();
+            const rateDecimal = growthRate / 100;
+            let initialPayout = 0;
+
+            for (let i = 0; i <= yearsToProject; i += 2) {
+                const year = currentYear + i;
+                const compoundedShares = initialShares * Math.pow(1 + rateDecimal, i);
+                const totalShares = Math.floor(compoundedShares);
+                const lotes = Math.floor(totalShares / 100);
+                const totalPayout = lotes * payoutPerLot;
+                
+                if (i === 0) initialPayout = totalPayout;
+                
+                const growthPercentage = initialPayout > 0 ? ((totalPayout / initialPayout) - 1) * 100 : 0;
+                
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="font-weight: bold;">${year}</td>
+                    <td class="val-col">${formatNumberBasic(totalShares)}</td>
+                    <td class="lote-col">${formatNumberBasic(lotes)} Lotes</td>
+                    <td class="money-col">$ ${formatNumberBasic(totalPayout)}</td>
+                    <td class="growth-col">${i === 0 ? '-' : '+ ' + growthPercentage.toFixed(1).replace('.', ',') + ' %'}</td>
+                `;
+                tbody.appendChild(tr);
             }
+        };
 
-            const totalNet = shares * dps * multiplier;
-            row.querySelector(".val-col").innerText = "$ " + formatMoney(totalNet);
-        });
+        // ==========================================
+        // LÓGICA: DIVIDENDOS NETOS
+        // ==========================================
+        function updateTimer() {
+            const target = new Date("2026-05-14T00:00:00");
+            const today = new Date();
+            const diff = target - today;
+            
+            if (diff > 0) {
+                const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("days-count").innerText = days;
+            } else {
+                document.getElementById("days-count").innerText = "0";
+            }
+        }
 
-        saveToStorage();
-    }
+        function saveToStorage() {
+            try {
+                localStorage.setItem('div_shares', document.getElementById("shares").value);
+                localStorage.setItem('div_dps', document.getElementById("dps").value);
+                localStorage.setItem('div_growth', document.getElementById("growth").value);
+                localStorage.setItem('div_tax', document.getElementById("tax").value);
+            } catch (e) {
+                console.error("No se pudo guardar en localStorage");
+            }
+        }
 
-    loadFromStorage();
-    updateTimer();
-    updateAll();
+        function loadFromStorage() {
+            try {
+                const sShares = localStorage.getItem('div_shares');
+                const sDps = localStorage.getItem('div_dps');
+                const sGrowth = localStorage.getItem('div_growth');
+                const sTax = localStorage.getItem('div_tax');
+
+                if(sShares && !isNaN(parseFloat(sShares))) document.getElementById("shares").value = sShares;
+                if(sDps && !isNaN(parseFloat(sDps))) document.getElementById("dps").value = sDps;
+                if(sGrowth && !isNaN(parseFloat(sGrowth))) document.getElementById("growth").value = sGrowth;
+                if(sTax && !isNaN(parseFloat(sTax))) document.getElementById("tax").value = sTax;
+            } catch (e) {
+                console.error("No se pudieron cargar datos previos");
+            }
+        }
+
+        function updateDividendos() {
+            const sharesInput = document.getElementById("shares").value;
+            const dpsInput = document.getElementById("dps").value;
+            const taxInput = document.getElementById("tax").value;
+            const growthInput = document.getElementById("growth").value;
+
+            const shares = parseFloat(sharesInput) || 0;
+            const currentDps = parseFloat(dpsInput) || 0;
+            const taxPercentage = parseFloat(taxInput) || 0;
+            const growthPercentage = parseFloat(growthInput) || 0;
+            
+            const multiplier = 1 - (taxPercentage / 100);
+            const growthRate = 1 + (growthPercentage / 100);
+            
+            const nextNetTotal = shares * currentDps * multiplier;
+            document.getElementById("total-val").innerText = formatMoney(nextNetTotal);
+
+            let futureDps = currentDps;
+
+            const rows = document.querySelectorAll("#dividend-table tbody tr");
+            rows.forEach(row => {
+                let dps;
+                
+                if (row.querySelector(".status-next")) {
+                    dps = currentDps;
+                    row.cells[1].innerText = "$ " + formatMoney(dps); 
+                    row.setAttribute("data-dps", dps); 
+                } else if (row.querySelector(".status-future")) {
+                    futureDps = futureDps * growthRate;
+                    dps = futureDps;
+                    row.cells[1].innerText = "$ " + formatMoney(dps); 
+                    row.setAttribute("data-dps", dps); 
+                } else {
+                    dps = parseFloat(row.getAttribute("data-dps")) || 0;
+                }
+
+                const totalNet = shares * dps * multiplier;
+                row.querySelector(".money-col").innerText = "$ " + formatMoney(totalNet);
+            });
+
+            saveToStorage();
+        }
+
+        // Asignar eventos de los inputs de Dividendos
+        document.getElementById("shares").addEventListener('input', updateDividendos);
+        document.getElementById("dps").addEventListener('input', updateDividendos);
+        document.getElementById("growth").addEventListener('input', updateDividendos);
+        document.getElementById("tax").addEventListener('input', updateDividendos);
+
+        // Inicialización general al cargar la página
+        loadFromStorage();
+        updateTimer();
+        updateDividendos();
+        calculateProjection(); // Generar la tabla de proyección inicialmente
+    });
 </script>
 </body>
 </html>
